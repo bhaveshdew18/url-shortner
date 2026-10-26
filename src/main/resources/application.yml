@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: url-shortener
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/shortener}
+    username: ${DB_USER:shortener}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
