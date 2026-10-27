@@ -4,7 +4,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/shortener}
     username: ${DB_USER:shortener}
-    password: ${DB_PASSWORD}
+    password: ${DB_PASSWORD:shortener}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -19,3 +19,10 @@ management:
     web:
       exposure:
         include: health,info
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
