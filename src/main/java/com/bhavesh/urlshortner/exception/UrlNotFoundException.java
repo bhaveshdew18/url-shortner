@@ -1,11 +1,10 @@
 package com.bhavesh.urlshortner.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class UrlNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UrlNotFoundException extends ApiException{
     public UrlNotFoundException(String code) {
-        super("No URL found for code: " + code);
+        super(HttpStatus.NOT_FOUND,"No URL found for code: " + code);
     }
 }
