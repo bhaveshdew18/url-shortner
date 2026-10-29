@@ -24,6 +24,12 @@ public class LinkPolicy {
     private static final List<String> BLOCKED_SUFFIXES =
             List.of(".localhost", ".local", ".internal", ".home.arpa");
 
+    private static final Pattern CODE_FORMAT = Pattern.compile("^[A-Za-z0-9_-]{1,32}$");
+
+    public boolean isValidCodeFormat(String code) {
+        return code != null && CODE_FORMAT.matcher(code).matches();
+    }
+
     private final String appHost;
 
     public  LinkPolicy(@Value("${app.base-url}") String baseUrl) {

@@ -13,6 +13,10 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      timeout: 200ms
+      connect-timeout: 500ms
+      repositories:
+        enabled: false
 
 management:
   endpoints:
@@ -23,6 +27,10 @@ management:
 logging:
   level:
     org.hibernate.SQL: debug
+    com.bhavesh.urlshortner.service.ClickService: debug
 
 app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
+  cache:
+    link-ttl: 1h
+    negative-ttl: 30s
