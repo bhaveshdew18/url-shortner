@@ -1,9 +1,15 @@
 package com.bhavesh.urlshortner.controller;
 
+import com.bhavesh.urlshortner.dto.ApiError;
 import com.bhavesh.urlshortner.service.ClickService;
 import com.bhavesh.urlshortner.service.LinkTarget;
 import com.bhavesh.urlshortner.service.UrlService;
 import com.bhavesh.urlshortner.util.Text;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +35,16 @@ public class RedirectController {
         this.clickService = clickService;
         this.clock = clock;
     }
+
+    @Operation(summary = "Follow a short link",
+            description = "Responds with 302 and a Location header. Records a click asynchronously.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "302", description = "Redirect to the original URL"),
+            @ApiResponse(responseCode = "404", description = "Unknown code",
+                    content = @Content(schema = @Schema(implementation = ApiError.class))),
+            @ApiResponse(responseCode = "410", description = "The link has expired",
+                    content = @Content(schema = @Schema(implementation = ApiError.class)))
+    })
 
     @GetMapping("/{code}")
     public ResponseEntity<Void> redirect(

@@ -29,8 +29,23 @@ logging:
     org.hibernate.SQL: debug
     com.bhavesh.urlshortner.service.ClickService: debug
 
+server:
+  forward-headers-strategy: ${FORWARD_HEADERS_STRATEGY:none}
+
 app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
   cache:
     link-ttl: 1h
     negative-ttl: 30s
+
+  rate-limit:
+    capacity: ${RATE_LIMIT_CAPACITY:10}
+    refill-period: ${RATE_LIMIT_REFILL_PERIOD:1m}
+    max-tracked-clients: 10000
+    client-idle-ttl: 10m
+
+springdoc:
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:true}
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:true}
