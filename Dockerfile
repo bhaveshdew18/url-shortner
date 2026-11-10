@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /build
 
 COPY mvnw pom.xml ./
@@ -9,12 +9,12 @@ COPY src src
 RUN ./mvnw -B -DskipTests package \
  && cp target/*.jar application.jar
 
-FROM eclipse-temurin:21-jre-jammy AS extract
+FROM eclipse-temurin:25-jre-jammy AS extract
 WORKDIR /extract
 COPY --from=build /build/application.jar application.jar
 RUN java -Djarmode=tools -jar application.jar extract --layers --destination extracted
 
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:25-jre-jammy
 RUN groupadd --system app && useradd --system --gid app --no-create-home app
 WORKDIR /app
 
