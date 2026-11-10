@@ -1,13 +1,10 @@
 package com.bhavesh.urlshortner;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class UrlShortnerApplicationTests {
+class UrlShortnerApplicationTests extends AbstractIntegrationTest {
 
     @Test
     void contextLoads() {
     }
-
 }
