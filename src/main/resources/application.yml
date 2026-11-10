@@ -17,12 +17,8 @@ spring:
       connect-timeout: 500ms
       repositories:
         enabled: false
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
 
 logging:
   level:
@@ -31,6 +27,8 @@ logging:
 
 server:
   forward-headers-strategy: ${FORWARD_HEADERS_STRATEGY:none}
+  port: ${PORT:8080}
+  shutdown: graceful
 
 app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
@@ -49,3 +47,14 @@ springdoc:
     enabled: ${SWAGGER_ENABLED:true}
   api-docs:
     enabled: ${SWAGGER_ENABLED:true}
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+        readiness:
+          include: readinessState,db

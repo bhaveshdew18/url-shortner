@@ -1,0 +1,14 @@
+logging:
+  level:
+    org.hibernate.SQL: info
+    com.bhavesh.urlshortner.service.ClickService: info
+
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 8
+
+server:
+  tomcat:
+    threads:
+      max: 40
